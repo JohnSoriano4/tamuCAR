@@ -3,8 +3,8 @@ Official repository of TAMU ChemE Car
 
 ag 'em giggies
 
-code to do:
-photoresistor detector
-motor start
-motor stop
-timing begin?
+Code functions include:
+LCD display,
+3 photoresistor detection,
+motor control via MOSFET,
+reset button,
