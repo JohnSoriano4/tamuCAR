@@ -50,8 +50,8 @@ void setup() {
 void loop() {
   on = digitalRead(onswitch);
   while (on == HIGH) {
-    lightcheckFunction();
     timer = timer + 250;
+    lightcheckFunction();
     delay(250);
     Serial.println(timer);
   }
