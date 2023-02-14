@@ -1,0 +1,25 @@
+TESTING SCRIPT INSTRUCTIONS
+
+ARDUINO SOFTWARE IS NOT REQUIRED, BUT HIGHLY RECOMMENDED. THE LCD DISPLAY SHOULD READ OUT ALL NECESSARY VALUES, BUT THE SERIAL MONITOR WILL GIVE MORE DETAILS
+YOU CAN DOWNLOAD ARDUINO SOFTWARE FROM https://www.arduino.cc/en/software, select win 10 installer
+
+To use the serial monitor, open the test script in the arduino IDE, and select the appropriate board/com port
+Then go to the top menu and choose tools then serial monitor
+
+To use the board, simply power on with the included cable, the display will initalize
+
+The switch has two states:
+
+When off, the program will print closed, and will display the last time recorded
+
+When on, the photoresistors will be active
+  The program will check the photoresistors every 250ms, and if at least two are off, then it will enter the stopped phase
+  The program will remain in the stopped phase until the switch is turned off
+  You can turn on the switch again for the next test
+  
+Things to note:
+The timer records time in milliseconds, so 14500 is equal to 14.5 seconds
+The program starts checking the instant the switch is flipped, so try to synchronize your reaction starting with the switch
+If there are any issues, please ask in the slack
+
+-Davis, 2/13/2023
