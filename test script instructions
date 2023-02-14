@@ -22,4 +22,8 @@ The timer records time in milliseconds, so 14500 is equal to 14.5 seconds
 The program starts checking the instant the switch is flipped, so try to synchronize your reaction starting with the switch
 If there are any issues, please ask in the slack
 
+LCD DISPLAY provides data in the following grids
+Photo 1 -- Photo 2 -- Photo 3 --
+"Timer" -- Time
+
 -Davis, 2/13/2023
