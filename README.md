@@ -5,6 +5,6 @@ ag 'em giggies
 
 Code functions include:
 LCD display,
-3 photoresistor detection,
+4 photoresistor detection,
 motor control via MOSFET,
-reset button,
+hardware on/off switch
