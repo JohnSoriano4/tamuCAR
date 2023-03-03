@@ -9,8 +9,6 @@
 #include <Servo.h>
 
 //initialize display and servo
-const int rs = 12, en = 11, d4 = 5, d5 = 4, d6 = 3, d7 = 2;
-LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 Servo valve;
 
 //Initialize analog pins for photoresistors
@@ -18,9 +16,15 @@ int photo1 = A2;
 int photo2 = A3;
 int photo3 = A4;
 int photo4 = A5;
-int motor = 3;
+int motor = 13;
+int stir = 11;
 int status;
 int switchpin = 12;
+
+int led1 = 3;
+int led2 = 4;
+int led3 = 5;
+int led4 = 6;
 
 //photoresistor variables
 int off1;
@@ -44,24 +48,28 @@ void setup() {
   pinMode(A5, INPUT);
   pinMode(switchpin, INPUT);
   pinMode(motor, OUTPUT);
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+  pinMode(led3, OUTPUT);
+  pinMode(led4, OUTPUT);
   valve.attach(10);
 
-  // set up the LCD's number of columns and rows:
-  lcd.begin(16, 2);
-  // Print a message to the LCD.
-  lcd.print("initializing");
+  digitalWrite(led1, HIGH);
+  digitalWrite(led2, HIGH);
+  digitalWrite(led3, HIGH);
+  digitalWrite(led4, HIGH);
+  
   Serial.println("initializing");
-  delay(3000);
-  lcd.print("STARTING");
   delay(1000);
   
 //START MOTOR
-  digitalWrite(motor, HIGH);
 }
 
 void loop() {
     status = digitalRead(switchpin);
     if (status == HIGH) {
+      digitalWrite(stir, HIGH);
+      digitalWrite(motor, HIGH);
       valve.write(180);
       lightcheckFunction();
       timer = timer + 100;
@@ -134,6 +142,7 @@ int lightcheckFunction(){
   if (offTotal > 2) {
     Serial.println("STOPPED");
     digitalWrite(motor, LOW);
+    digitalWrite(stir, LOW);
     Serial.println("final time");
     Serial.println(timer);
     lcd.clear();
@@ -144,10 +153,10 @@ int lightcheckFunction(){
     
     while (true) {
       Serial.println("STOPPED");
-      Serial.println(timer);
-      lcd.setCursor(1,0);
-      lcd.print("STOP");
-      delay(3000);
+        status = digitalRead(switchpin);
+        if (status == HIGH) {
+          Serial.println("RESETTING");
+          break
       } 
     }         
 
