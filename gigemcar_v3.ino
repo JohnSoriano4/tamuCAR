@@ -1,15 +1,18 @@
 #include <ESP32Servo.h>
 
+//Initializes Servo "Object" controlling the valve
 Servo valve;
-int photo1 = 39;
-int photo2 = 34;
-int photo3 = 35;
-int photo4 = 32;
-int startlever = 25;
-int servoPin = 33;
 
-int motor = 23;
+//Pin IDs for the attatched hardware
+const int photo1 = 39;
+const int photo2 = 34;
+const int photo3 = 35;
+const int photo4 = 32;
+const int startlever = 25;
+const int servoPin = 33;
+const int motor = 23;
 
+//State variables for things
 int off1 = 0;
 int off2 = 0;
 int off3 = 0;
@@ -18,6 +21,7 @@ int offTotal = 0;
 int status = 0;
 int status2 = 0;
 
+//Photoresistor Sensitivities????
 const int sense1 = 200;
 const int sense2 = 200;
 const int sense3 = 200;
@@ -29,6 +33,7 @@ void setup() {
   Serial.begin(115200);
   valve.attach(servoPin, 1000, 2000);
 
+  //Initialize hardware
   pinMode(photo1, INPUT);
   pinMode(photo2, INPUT);
   pinMode(photo3, INPUT);
@@ -46,10 +51,10 @@ void loop() {
   if (status == HIGH) {
     Serial.println("starting");
     valve.write(180); //OPEN VALVE
-    timer = timer + 100; //RUN TIMER
+    timer = timer + 100; //RUN TIMER    <- Ask about using arduino-timer https://github.com/contrem/arduino-timer
     digitalWrite(motor, HIGH);
     lightcheckFunction(); //CHECK PHOTORESISTORS
-    delay(100); //10 CYCLES PER SECOND
+    delay(100); //10 CYCLES PER SECOND     <- Ask about making faster
   } 
   else {
     valve.write(0);
