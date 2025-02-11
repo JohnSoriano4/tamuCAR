@@ -24,6 +24,8 @@ uint8_t offTotal = 0;
 int status = 0;
 int status2 = 0;
 
+int clockSpeed = 100; //In milliseconds
+
 //Photoresistor Sensitivities
 const int photo1_sense = 200;
 const int photo2_sense = 200;
@@ -33,8 +35,9 @@ const int photo4_sense = 1200;
 int timer = 0;
 
 void setup() {
-  Serial.begin(115200);    //TODO: Find out what this means
-  valve.attach(servoPin, 1000, 2000);
+  Serial.begin(115200); // Says what channel to display serial data to
+  valve.write(0); // Ensures that the servo is closed upon starting
+  valve.attach(servoPin, 1000, 2000); //Possibly tweak these values
 
   //Initialize hardware
   pinMode(photo1, INPUT);
@@ -54,10 +57,10 @@ void loop() {
   if (status == HIGH) {
     Serial.println("starting");
     valve.write(180); //OPEN VALVE
-    timer = timer + 100; //RUN TIMER    <- Ask about using arduino-timer https://github.com/contrem/arduino-timer
+    timer = timer + 100; //RUN TIMER
     digitalWrite(motors, HIGH);
     lightcheckFunction(); //CHECK PHOTORESISTORS
-    delay(100); //10 CYCLES PER SECOND     <- Ask about making faster
+    delay(clockSpeed); 
   } 
   else {
     valve.write(0);
@@ -101,15 +104,18 @@ void lightcheckFunction() {
 
   //Checks if any three are on using boolean logic
   //if ((photo1_isOff && photo2_isOff && photo3_isOff) || (photo1_isOff && photo2_isOff && photo4_isOff) || (photo2_isOff && photo3_isOff && photo4_isOff) || (photo1_isOff && photo3_isOff && photo4_isOff)) {
-    if (offTotal >= 3) {
+  if (offTotal >= 3) 
+  {
     Serial.println("STOPPED");
     digitalWrite(motors, LOW);
     Serial.println("final time");
     Serial.println(timer);
 
-    while (true) { //why is this only here
+    while (true) 
+    { //why is this only here
       status2 = digitalRead(startlever);
-      if (status2==LOW){
+      if (status2==LOW)
+      {
         Serial.println("reset");
         timer = 0;
         break;
